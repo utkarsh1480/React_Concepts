@@ -39,9 +39,10 @@ Yes, your statement is completely correct! Here's the key rule:
 
 Any component inside the <Context.Provider> wrapper — at any depth — can access the context data.
 ```
-```JS
+
+
 ### How to Implement Contect API
 
 ### Method 01
 
-```
+
