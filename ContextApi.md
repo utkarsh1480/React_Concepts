@@ -28,9 +28,7 @@ Create async functions inside the provider and expose them in the value. Use use
 ```
 ```
 
-<p align="center">
-  <img src="[path/to/image.png](https://github.com/user-attachments/assets/aacd8eec-ff36-4856-a909-ccfb98bfc5af)" width="300">
-</p>
+
 ```
 
 
