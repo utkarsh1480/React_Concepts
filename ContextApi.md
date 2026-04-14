@@ -46,3 +46,37 @@ Any component inside the <Context.Provider> wrapper — at any depth — can acc
 ### Method 01
 
 
+### How does useContext get (catch) the context value?
+In simple terms, useContext reads the value from the nearest matching <Provider> above it in the component tree.
+```
+How it works internally (important for interviews)
+React maintains a context object
+When a component calls useContext(MyContext)
+React:
+Looks up the component tree
+Finds the nearest <MyContext.Provider>
+Returns its value
+
+👉 If no Provider is found → it returns the default value passed to createContext(defaultValue)
+### code
+```JS
+import { createContext, useContext } from "react";
+
+// Step 1: Create Context
+const UserContext = createContext("Guest");
+
+function App() {
+  return (
+    <UserContext.Provider value="Utkarsh">
+      <Profile />
+    </UserContext.Provider>
+  );
+}
+
+function Profile() {
+  const user = useContext(UserContext); // 👈 catches value
+
+  return <h1>Hello, {user}</h1>;
+}
+```
+```
