@@ -82,3 +82,87 @@ function Profile() {
   return <h1>Hello, {user}</h1>;
 }
 ```
+### Context API is useful for sharing global, low-frequency state, but it can cause unnecessary re-renders if not optimized properly.
+### Important Points 
+
+01: Forgetting that ALL consumers re-render
+
+Students often say:
+
+“Only the component using changed value re-renders”
+
+❌ Wrong
+✔️ All components using that context re-render
+
+👉 This is a very common interview trap
+
+02; Not using useMemo for value optimization
+```JS
+<MyContext.Provider value={{ user, setUser }}>
+```
+❌ This creates a new object every render → unnecessary re-renders
+use this 
+```JS
+const value = useMemo(() => ({ user, setUser }), [user]);
+<MyContext.Provider value={value}>
+```
+
+Not understanding “nearest provider”
+
+Students think:
+
+“Context is global everywhere”
+
+❌ Wrong
+✔️ It depends on tree position
+
+👉 Nearest <Provider> value is used
+
+03: Not knowing useContext is synchronous
+
+Students assume:
+
+“It fetches data like API”
+
+❌ Wrong
+✔️ It just reads already available value
+
+### If interviewer asks:
+
+“Is useContext async?”
+
+👉 Best answer:
+“No, useContext is synchronous. It only reads the current value from the nearest Provider. Async logic like API calls is handled separately using hooks like useEffect.”
+
+```JS
+👉 useContext is completely synchronous
+
+It does NOT fetch data
+It does NOT wait
+It does NOT return a Promise
+
+👉 It simply reads the current value from the nearest Provider instantly
+```
+```JS
+function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/user")
+      .then(res => res.json())
+      .then(data => setUser(data)); // async happens here
+  }, []);
+
+  return (
+    <UserContext.Provider value={user}>
+      <Dashboard />
+    </UserContext.Provider>
+  );
+}
+
+function Dashboard() {
+  const user = useContext(UserContext); // ✅ sync read
+
+  return <h1>{user?.name}</h1>;
+}
+```
