@@ -27,6 +27,14 @@ Q10. How do you handle async operations (like API calls) in Context?
 Create async functions inside the provider and expose them in the value. Use useEffect for initial data fetching.
 ```
 ```
+
+<p align="center">
+  <img src="[path/to/image.png](https://github.com/user-attachments/assets/aacd8eec-ff36-4856-a909-ccfb98bfc5af)" width="300">
+</p>
+```
+
+
+
 <img width="1440" height="1102" alt="image" src="https://github.com/user-attachments/assets/aacd8eec-ff36-4856-a909-ccfb98bfc5af" />
 
 Yes, your statement is completely correct! Here's the key rule:
