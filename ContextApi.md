@@ -58,6 +58,9 @@ Finds the nearest <MyContext.Provider>
 Returns its value
 
 👉 If no Provider is found → it returns the default value passed to createContext(defaultValue)
+
+
+```
 ### code
 ```JS
 import { createContext, useContext } from "react";
@@ -78,5 +81,4 @@ function Profile() {
 
   return <h1>Hello, {user}</h1>;
 }
-```
 ```
