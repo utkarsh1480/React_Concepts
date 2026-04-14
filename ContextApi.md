@@ -26,7 +26,7 @@ Every context value change causes all consumers to re-render. For state like mou
 Q10. How do you handle async operations (like API calls) in Context?
 Create async functions inside the provider and expose them in the value. Use useEffect for initial data fetching.
 ```
-```
+
 
 
 ```
@@ -38,4 +38,10 @@ Create async functions inside the provider and expose them in the value. Use use
 Yes, your statement is completely correct! Here's the key rule:
 
 Any component inside the <Context.Provider> wrapper — at any depth — can access the context data.
+```
+```JS
+### How to Implement Contect API
+
+### Method 01
+
 ```
