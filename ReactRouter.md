@@ -44,4 +44,77 @@ Navbar → never removed, always visible
 Home, About, Contact → only one renders at a time based on URL)
 State is preserved, no full reload
 ```
+### Nested Routing 
+```JS
+<Routes>
+  <Route path="/dashboard" element={<Dashboard />}>
+    {/* Children nested inside Dashboard */}
+    <Route path="profile" element={<Profile />} />
+    <Route path="settings" element={<Settings />} />
+  </Route>
+</Routes>
+
+```
+### Clean, no repetition. But now you need Outlet to tell React Router where to render the child.
+```
+<Route index element={<DashboardHome />} />
+index = default child when no sub-path is matched
+```
+
+### Navigate
+```
+What is it: useNavigate is a hook that lets you navigate programmatically — without the user clicking a Link.
+When to use it?
+After form submission → redirect to dashboard
+After logout → redirect to login
+After an API call → redirect based on result
+```
+```JS
+// Go to a route
+navigate('/dashboard');
+
+// Go BACK (like browser back button)
+navigate(-1);
+
+// Go FORWARD
+navigate(1);
+
+// Replace current history (no back button)
+navigate('/dashboard', { replace: true });
+
+// Pass state to next page
+navigate('/dashboard', { state: { user: 'John' } });
+```
+### Receiving state on the next page:
+```
+import { useLocation } from 'react-router-dom';
+
+function Dashboard() {
+  const location = useLocation();
+  console.log(location.state.user); // "John"
+}
+```
+```
+navigate('/path', { state: {} }) → sends data to next page
+useLocation().state → receives that data
+State is temporary — lost on page refresh
+Always use optional chaining ?. when reading state
+For persistent data → use localStorage or Context API
+What is useLocation Exactly?
+useLocation gives you the current URL information as an object:
+```
+### RealWorld example of the send State 
+```JS
+/ After placing order
+navigate('/order-confirmation', {
+  state: {
+    orderId: 'ORD123',
+    items: cartItems,
+    total: 1299
+  }
+});
+
+// On confirmation page
+const { orderId, items, total } = location.state;
+```
 
