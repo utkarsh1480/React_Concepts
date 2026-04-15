@@ -57,9 +57,34 @@ src/
 ├── App.js
 ```
 
+### Method: 02
+```
+src/
+│
+├── context/
+│   ├── ThemeContext.js      // your code (context + custom hook)
+│
+├── components/
+│   ├── ThemeButton.js       // consumer component
+│
+├── App.js                  // provider wrapper
 
+code :
+import { createContext, useContext } from 'react'
 
+export const ThemeContext = createContext({
+    Theme: 'light',
+    DarkTheme: () => { },
+    LightTheme: () => { }    
 
+})
+
+export const ThemeProvider = ThemeContext.Provider;
+
+export default function useTheme() {
+    return useContext(ThemeContext)
+}
+```
 ### How does useContext get (catch) the context value?
 In simple terms, useContext reads the value from the nearest matching <Provider> above it in the component tree.
 ```
