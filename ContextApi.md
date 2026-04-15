@@ -44,6 +44,20 @@ Any component inside the <Context.Provider> wrapper — at any depth — can acc
 ### How to Implement Contect API
 
 ### Method 01
+```JS
+src/
+│
+├── context/
+│   ├── GitHubContext.js        // createContext
+│   ├── GitHubContextProvider.js // provider (your code)
+│
+├── components/
+│   ├── Profile.js              // consumer component
+│
+├── App.js
+```
+
+
 
 
 ### How does useContext get (catch) the context value?
