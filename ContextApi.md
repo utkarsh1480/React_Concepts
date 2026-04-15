@@ -165,7 +165,18 @@ Students assume:
 
 ❌ Wrong
 ✔️ It just reads already available value
-
+### Internal working of the Context API
+```
+Full Internal Flow (Step-by-Step)
+1. createContext() → creates context object
+2. Provider wraps components
+3. value stored in Provider
+4. useContext() called in child
+5. React searches upward in Fiber tree
+6. Finds nearest Provider
+7. Returns value
+8. If value changes → re-render triggered
+```
 ### If interviewer asks:
 
 “Is useContext async?”
