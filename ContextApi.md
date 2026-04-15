@@ -205,3 +205,28 @@ function Dashboard() {
   return <h1>{user?.name}</h1>;
 }
 ```
+
+### Some Other Interview Question 
+
+Ques: What is the difference between useContext() and Context.Consumer?
+Ans : useContext() is a cleaner, modern hook-based approach. Context.Consumer is the older render-prop pattern. Both achieve the same result.
+
+Que: What is the default value of a context and when is it used?
+Ans: The default value passed to createContext(defaultValue) is only used when a component has no matching Provider above it in the tree.
+
+When would you choose Context API over Redux?
+
+Que: Context API: Simple global state, theming, auth, small apps
+Ans: Redux: Complex state logic, large apps, middleware needs, time-travel debugging
+
+Que: What are the performance pitfalls of Context API?
+Ans:
+Every consumer re-renders on any value change
+Large context objects cause unnecessary renders
+No built-in selector support (unlike Redux's useSelector)
+
+### Practical / Scenario-Based
+Que:  Build a global theme toggle (dark/light mode) using Context API.
+Classic hands-on question — tests your ability to create, provide, and consume context with real state.
+Que: How would you implement authentication state using Context API?
+Create an AuthContext that stores user, login(), and logout() — wrap the app with AuthProvider and consume in any component.
