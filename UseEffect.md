@@ -156,3 +156,70 @@ When fetch completes:
 
 ```
 ## The empty array [] is KEY - it prevents the infinite loop!
+
+## Interview Tip
+
+A common React pattern is:
+```
+useEffect(() => {
+  async function fetchData() {
+    try {
+      ...
+    } catch (error) {
+      ...
+    } finally {
+      ...
+    }
+  }
+
+  fetchData();
+}, []);
+```
+## Because:
+```
+useEffect itself cannot be async.
+try-catch-finally should be inside the async function.
+setLoading(false) should run in finally so it executes whether the API succeeds or fails.
+```
+
+## Using setInterval with useEffect
+
+### Why Timers Need useEffect
+
+**❌ Without useEffect - Timers Pile Up:**
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  // BAD! Don't do this
+  setInterval(() => {
+    console.log('Tick');
+  }, 1000);
+
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>Click</button>
+    </div>
+  );
+}
+
+```
+
+**What happens:**
+First render:
+→ Interval-1 created (ticks every second)
+
+You click button:
+→ Component re-renders
+→ Interval-2 created (ticks every second)
+→ Now TWO intervals running!
+
+You click again:
+→ Component re-renders
+→ Interval-3 created
+→ Now THREE intervals running!
+
+Result: Timers keep piling up! Memory leak! 💥
+
