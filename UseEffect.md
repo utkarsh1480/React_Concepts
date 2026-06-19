@@ -223,3 +223,24 @@ You click again:
 
 Result: Timers keep piling up! Memory leak! 💥
 
+### Correct Way - With useEffect and Cleanup
+
+```jsx
+function Clock() {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    // Cleanup function
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []); // Run once
+
+  return <div>Time: {time}</div>;
+}
+
+```
