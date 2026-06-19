@@ -467,3 +467,130 @@ runs automatically.
 * `useEffect` handles side effects.
 * API calls should be inside `useEffect`.
 * Always clean intervals and subscriptions using cleanup functions.
+
+  # JavaScript Timers Quick Notes
+
+## Why use `clearTimeout()` if `setTimeout()` runs only once?
+
+`setTimeout()` schedules a task for the future.
+
+```js
+const id = setTimeout(() => {
+  console.log("Hello");
+}, 5000);
+```
+
+Sometimes the task is no longer needed before it executes.
+
+```js
+clearTimeout(id);
+```
+
+### Common Uses
+
+* Cancel delayed actions
+* Debouncing search inputs
+* React component cleanup
+
+---
+
+## Difference Between `setTimeout()` and `setInterval()`
+
+### setTimeout
+
+Runs once after a delay.
+
+```js
+setTimeout(() => {
+  console.log("Hello");
+}, 3000);
+```
+
+Output:
+
+```text
+Hello
+```
+
+---
+
+### setInterval
+
+Runs repeatedly after every delay.
+
+```js
+setInterval(() => {
+  console.log("Hello");
+}, 1000);
+```
+
+Output:
+
+```text
+Hello
+Hello
+Hello
+...
+```
+
+---
+
+| Feature   | setTimeout   | setInterval   |
+| --------- | ------------ | ------------- |
+| Execution | Once         | Repeatedly    |
+| Stop      | clearTimeout | clearInterval |
+| Use Case  | Delayed Task | Repeated Task |
+
+---
+
+## How `clearTimeout()` and `clearInterval()` Work Internally
+
+When a timer is created:
+
+```js
+const id = setTimeout(fn, 5000);
+```
+
+Browser stores:
+
+```text
+ID = 1
+Delay = 5000ms
+Callback = fn
+```
+
+Calling:
+
+```js
+clearTimeout(id);
+```
+
+tells the browser:
+
+```text
+Find Timer ID 1
+Remove it
+Do not execute callback
+```
+
+Same for intervals:
+
+```js
+const id = setInterval(fn, 1000);
+
+clearInterval(id);
+```
+
+Browser removes the repeating timer and stops scheduling callbacks.
+
+---
+
+## Interview Answer
+
+* `setTimeout()` runs once after a delay.
+* `setInterval()` runs repeatedly after a delay.
+* Both return a timer ID.
+* `clearTimeout(id)` cancels a scheduled timeout.
+* `clearInterval(id)` stops a running interval.
+* Browser manages timers using Web APIs, Callback Queue, and the Event Loop.
+
